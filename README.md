@@ -1,1 +1,1 @@
-ACCELERATED C++: PRACTICAL PROGRAMMING BY EXAMPLE
+Some Good Programming question of easy level.
