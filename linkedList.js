@@ -38,7 +38,7 @@ class LinkedList{
         }
         return array;
     }
-    insert(index, value){
+    insert(index, value){ //This can be make shorter using getNode but I'm lazy.
       let currentNode = this.head;
       let counter = 0;
       if(index > this.length){
@@ -60,19 +60,15 @@ class LinkedList{
       }
     }
 }
-    remove(value){
-        let currentNode = this.head;
+    getNode(index){
         let counter = 0;
-        while(true){
-            if(currentNode.value == value){
-
-                this.length--;
-                break;
-            }else if(currentNode.next == null){
-                console.log("No Element found with this value\n"); break;
-            }
-            currentNode = currentNode.next;
-            counter++;
-        }
+        let currentNode = this.head;
+        while(counter != index) currentNode = currentNode.next
+        return currentNode
+    }
+    remove(index){
+        const node = this.getNode(index-1);
+        node.next = node.next.next;
+        this.length--;
     }
 }
