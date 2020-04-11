@@ -1,13 +1,12 @@
- class Node{
-     constructor(value){
-         this.value = value
-         this.next = null
-     }
- }
-
+class Node{
+    constructor(value){
+        this.value = value;
+        this.next = null;
+    }
+}
 class LinkedList{
     constructor(value){
-        this.head = {
+        this.head={
             value: value,
             next: null
         }
@@ -17,58 +16,64 @@ class LinkedList{
     append(value){
         const newNode = new Node(value);
         this.tail.next = newNode;
-        this.tail = newNode;
-        this.length++
+        this.length++;
     }
     prepand(value){
-        const newNode = new Node(value)
-        newNode.next = this.head
-        this.head = newNode
-        this.length++
+        const newNode = new Node(value);
+        const NodeHead = this.head;
+        this.head = newNode;
+        newNode.next = NodeHead;
+        this.length++;
     }
-    size(){ //Length is already given but wanted to feel like c++
-        return this.length
-    }
-    printList(){
-        const array = []
-        let currentNode = this.head;
-        while(currentNode!= null){
-            array.push(currentNode.value)
-            currentNode = currentNode.next;
-        }
-        return array;
-    }
-    insert(index, value){ //This can be make shorter using getNode but I'm lazy.
-      let currentNode = this.head;
-      let counter = 0;
-      if(index > this.length){
-          console.warn("Index out of range")}
+    insert(index, value){
+        let headNode = this.head;
+        if(index > this.length) console.log("Out of Range");
         else{
-      while(true){
-          if(index == 0){this.prepand(value); break;}
-          else if(index == this.length) {this.append(value); break;}
-          if(counter == index-1){
-            const tails = currentNode.next;
+            if(index == 0) {this.prepand(value); this.length++;}
+            else if(index == this.length) {this.append(value); this.length++;}
+            else{
+                for(let i = 1; i < index; i++){
+                headNode = headNode.next;
+            }
             const newNode = new Node(value);
-            currentNode.next = newNode
-            newNode.next = tails
-            this.length++
-            break;
-          }
-          currentNode = currentNode.next
-          counter++
-      }
+            const headNodeCopy = headNode.next;
+            headNode.next = newNode;
+            newNode.next = headNodeCopy;
+            this.length++;
+        }
     }
-}
-    getNode(index){
-        let counter = 0;
-        let currentNode = this.head;
-        while(counter != index) currentNode = currentNode.next
-        return currentNode
     }
     remove(index){
-        const node = this.getNode(index-1);
-        node.next = node.next.next;
+        let leader = this.traverseToIndex(index-1);
+        const unwantedNode = leader.next;
+        leader.next = unwantedNode.next;
+
         this.length--;
     }
+    traverseToIndex(index){
+        let currentNode = this.head;
+        while(index--){
+            currentNode = currentNode.next;
+        }
+        return currentNode;
+    }
+    printList(){
+        const arry = [];
+        let currentNode = this.head;
+        while(currentNode != null){
+            arry.push(currentNode.value);
+            currentNode = currentNode.next;
+        }
+        return arry;
+    }
 }
+const myLinkedList = new LinkedList(3);
+myLinkedList.append(3);
+myLinkedList.prepand(1);
+myLinkedList.insert(1, 2);
+myLinkedList.insert(1, 5);
+myLinkedList.insert(0, 0);
+myLinkedList.insert(6, 6);
+myLinkedList.insert(3, 99);
+myLinkedList.remove(3);
+console.log(myLinkedList.printList())
