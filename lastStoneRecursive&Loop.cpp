@@ -19,6 +19,19 @@ public:
     }
 };
 
+class Solution1 {
+public:
+    int lastStoneWeight(vector<int>& stones) {
+    	while(stones.size() >= 2){
+    		sort(stones.begin(), stones.end());
+    		stones[stones.size()-2] = abs(stones[stones.size()-1] - stones[stones.size()-2]);
+    		stones.pop_back();
+    	}
+    	if(stones.size() == 1) return stones[0];
+    	return 0;
+    }
+};
+
 int main(){
 
 	vector<int> vec={2,7,4,1,8,1};
