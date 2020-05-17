@@ -100,13 +100,13 @@ std::vector<int> Inorderdfs(Node* root){
 }
 std::vector<int> PreVec;
 std::vector<int> PreOrder(Node* root){
+	PreVec.push_back(root->data);
     if(root->left != NULL){
         PreOrder(root->left);
     }
     if(root->right != NULL){
         PreOrder(root->right);
     }
-    PreVec.push_back(root->data);
     return PreVec;
 }
 std::vector<int> PostVec;
